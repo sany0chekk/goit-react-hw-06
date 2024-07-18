@@ -1,13 +1,13 @@
-import css from "./ContactForm.module.css";
-
 import { useId } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
+import { addContact } from "../redux/contactsSlice";
 
-const ContactForm = ({ onAdd }) => {
+const ContactForm = () => {
   const nameFieldId = useId();
   const numberFieldId = useId();
+  const dispatch = useDispatch();
 
   const initialValues = {
     username: "",
@@ -32,13 +32,7 @@ const ContactForm = ({ onAdd }) => {
   });
 
   const handleSubmit = (values, actions) => {
-    const newContact = {
-      id: nanoid(),
-      name: values.username,
-      number: values.number,
-    };
-
-    onAdd(newContact);
+    dispatch(addContact(values.username, values.number));
     actions.resetForm();
   };
 
@@ -48,38 +42,35 @@ const ContactForm = ({ onAdd }) => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      <Form className={css.form}>
-        <div className={css.formElement}>
-          <label htmlFor={nameFieldId} className={css.label}>
+      <Form className="flex flex-col gap-4 mb-16">
+        <div className="flex flex-col">
+          <label htmlFor={nameFieldId} className="text-sm">
             Name
           </label>
           <Field
             type="text"
             name="username"
             id={nameFieldId}
-            className={css.input}
+            className="w-full bg-neutral-600 border border-neutral-500 rounded-md h-8 outline-none transition-colors focus:border-neutral-400 px-2 text-sm"
           />
-          <ErrorMessage
-            name="username"
-            component="span"
-            className={css.warning}
-          />
+          <ErrorMessage name="username" component="span" />
         </div>
-        <div className={css.formElement}>
-          <label htmlFor={numberFieldId}>Number</label>
+        <div className="flex flex-col">
+          <label htmlFor={numberFieldId} className="text-sm">
+            Number
+          </label>
           <Field
             type="text"
             name="number"
             id={numberFieldId}
-            className={css.input}
+            className="w-full bg-neutral-600 border border-neutral-500 rounded-md h-8 outline-none transition-colors focus:border-neutral-400 px-2 text-sm"
           />
-          <ErrorMessage
-            className={css.warning}
-            name="number"
-            component="span"
-          />
+          <ErrorMessage name="number" component="span" />
         </div>
-        <button type="submit" className={css.btn}>
+        <button
+          type="submit"
+          className="w-full bg-teal-700 transition-colors hover:bg-teal-600 p-2 rounded-md"
+        >
           Add contact
         </button>
       </Form>
