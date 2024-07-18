@@ -12,7 +12,7 @@ const ContactList = () => {
   );
 
   return (
-    <ul className="grid gap-2 overflow-y-auto">
+    <ul className="grid gap-2">
       {visibleContacts.map((contact) => {
         return <Contact key={contact.id} contact={contact} />;
       })}
