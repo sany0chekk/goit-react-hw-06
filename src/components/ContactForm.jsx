@@ -53,7 +53,11 @@ const ContactForm = () => {
             id={nameFieldId}
             className="w-full bg-neutral-600 border border-neutral-500 rounded-md h-8 outline-none transition-colors focus:border-neutral-400 px-2 text-sm"
           />
-          <ErrorMessage name="username" component="span" />
+          <ErrorMessage
+            name="username"
+            component="span"
+            className="text-red-600 mt-1"
+          />
         </div>
         <div className="flex flex-col">
           <label htmlFor={numberFieldId} className="text-sm">
@@ -65,7 +69,11 @@ const ContactForm = () => {
             id={numberFieldId}
             className="w-full bg-neutral-600 border border-neutral-500 rounded-md h-8 outline-none transition-colors focus:border-neutral-400 px-2 text-sm"
           />
-          <ErrorMessage name="number" component="span" />
+          <ErrorMessage
+            name="number"
+            component="span"
+            className="text-red-600 mt-1"
+          />
         </div>
         <button
           type="submit"
